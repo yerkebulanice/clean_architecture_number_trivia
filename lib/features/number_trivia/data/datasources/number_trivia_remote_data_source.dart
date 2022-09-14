@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:clean_architecture_tdd_course/core/error/exceptions.dart';
-import 'package:clean_architecture_tdd_course/features/number_trivia/data/models/number_trivia_model.dart';
-
-import '../../domain/entities/number_trivia.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../../core/error/exceptions.dart';
+import '../../domain/entities/number_trivia.dart';
+import '../models/number_trivia_model.dart';
 
 abstract class NumberTriviaRemoteDataSource {
   /// Calls the http://numbersapi.com/{number} endpoint
@@ -34,6 +34,7 @@ class NumberTriviaRemoteDataSourceImpl implements NumberTriviaRemoteDataSource {
       headers: {'Content-Type': 'application/json'},
     );
     if (response.statusCode == 200) {
+      print('BODYYY: ${response.body}');
       return NumberTriviaModel.fromJson(json.decode(response.body));
     } else {
       throw ServerException();
